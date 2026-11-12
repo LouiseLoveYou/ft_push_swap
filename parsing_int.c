@@ -12,37 +12,42 @@
 
 #include "push_swap.h"
 
-static int	skip_sign(const char **s)
+static int	parse_digits(const char *s, int len, long *res, long limit)
 {
-	int	sign;
+	int	i;
 
-	sign = 1;
-	if (**s == '+' || **s == '-')
+	i = 0;
+	while (i < len && ft_isdigit(s[i]))
 	{
-		if (**s == '-')
-			sign = -1;
-		(*s)++;
+		if (*res > (limit - (s[i] - '0')) / 10)
+			return (1);
+		*res = *res * 10 + (s[i] - '0');
+		i++;
 	}
-	return (sign);
+	if (i != len)
+		return (1);
+	return (0);
 }
 
-int	parse_int(const char *s, int *out)
+int	parse_int(const char *s, int *out, int len)
 {
 	long	res;
+	long	limit;
 	int		sign;
-	int		digits;
 
 	res = 0;
-	sign = skip_sign(&s);
-	digits = 0;
-	while (ft_isdigit(*s))
+	sign = 1;
+	if (len > 0 && s[0] == '-')
+		sign = -1;
+	if (len > 0 && (s[0] == '+' || s[0] == '-'))
 	{
-		res = res * 10 + (*s++ - '0');
-		digits++;
-		if (res > (long)INT_MAX + (sign < 0))
-			return (1);
+		s++;
+		len--;
 	}
-	if (digits == 0 || *s != '\0')
+	if (len <= 0)
+		return (1);
+	limit = (long)INT_MAX + (sign < 0);
+	if (parse_digits(s, len, &res, limit))
 		return (1);
 	*out = (int)(res * sign);
 	return (0);

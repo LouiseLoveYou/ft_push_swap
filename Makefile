@@ -4,6 +4,8 @@ CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
 LIBFT_DIR	= Libft
 LIBFT		= $(LIBFT_DIR)/libft.a
+LIBFT_SRCS	= $(wildcard $(LIBFT_DIR)/*.c) $(wildcard $(LIBFT_DIR)/*.h) \
+			  $(LIBFT_DIR)/Makefile
 INC			= -I $(LIBFT_DIR)
 
 SRCS		= main.c \
@@ -23,7 +25,7 @@ OBJS		= $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(LIBFT):
+$(LIBFT): $(LIBFT_SRCS)
 	$(MAKE) -C $(LIBFT_DIR)
 
 $(NAME): $(LIBFT) $(OBJS)

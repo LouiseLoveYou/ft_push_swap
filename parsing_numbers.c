@@ -37,14 +37,16 @@ int	count_numbers(int argc, char **argv, int start)
 {
 	int	i;
 	int	count;
+	int	words;
 
 	count = 0;
 	i = start;
 	while (i < argc)
 	{
-		if (argv[i][0] == '\0')
+		words = count_words(argv[i]);
+		if (words == 0)
 			return (-1);
-		count += count_words(argv[i]);
+		count += words;
 		i++;
 	}
 	if (count == 0)
@@ -54,24 +56,20 @@ int	count_numbers(int argc, char **argv, int start)
 
 int	fill_arg(char *arg, int *a, int *k)
 {
-	char	buf[12];
-	int		j;
-	int		len;
+	int	j;
+	int	start;
 
 	j = 0;
 	while (arg[j])
 	{
 		while (is_space(arg[j]))
 			j++;
-		len = 0;
-		while (arg[j] && !is_space(arg[j]) && len < 11)
-			buf[len++] = arg[j++];
-		if (len == 0)
+		if (!arg[j])
 			break ;
-		if (arg[j] && !is_space(arg[j]))
-			return (1);
-		buf[len] = '\0';
-		if (parse_int(buf, &a[*k]))
+		start = j;
+		while (arg[j] && !is_space(arg[j]))
+			j++;
+		if (parse_int(arg + start, &a[*k], j - start))
 			return (1);
 		(*k)++;
 	}
