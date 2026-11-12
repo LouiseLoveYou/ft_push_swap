@@ -47,4 +47,4 @@ TODO: justify the `O(n^2)`, `O(n sqrt(n))`, `O(n log n)` and adaptive strategies
 
 ## Usage of AI 
 
-The AI is use for generated this README.md file, and for generating some of the code in the project. The AI is not used for generating the algorithms or the logic of the project, but only for generating the documentation and some boilerplate code.
+The AI is use for generated this README.md file. The AI is not used for generating the algorithms or the logic of the project, but only for generating the documentation and some boilerplate code.
