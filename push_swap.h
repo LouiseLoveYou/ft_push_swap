@@ -35,6 +35,6 @@ int		parse_flags(int argc, char **argv, t_config *cfg);
 int		*parse_numbers(int argc, char **argv, int start, int *n);
 int		count_numbers(int argc, char **argv, int start);
 int		fill_arg(char *arg, int *a, int *k);
-int		parse_int(const char *s, int *out);
+int		parse_int(const char *s, int *out, int len);
 
 #endif

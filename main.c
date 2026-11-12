@@ -81,8 +81,6 @@ int	main(int argc, char **argv)
 	start = parse_flags(argc, argv, &cfg);
 	if (start < 0)
 		return (print_error());
-	if (start >= argc)
-		return (0);
 	a = parse_numbers(argc, argv, start, &n);
 	if (!a)
 		return (print_error());
