@@ -1,52 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   algo_simple.c                                     :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: kisella <kisella@student.42lehavre.fr>    #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/11/12 13:12:04 by kisella          #+#    #+#              */
-/*   Updated: 2026/11/13 13:14:49 by kisella         ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   algo_simple.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kisella <kisella@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/12 13:12:04 by kisella           #+#    #+#             */
+/*   Updated: 2026/11/13 14:18:40 by kisella          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	ra(t_stack **a)
+int	get_val_position(t_stack *a, int target_val)
 {
-	t_stack	*first;
-	t_stack	*last;
+	int		pos;
+	t_stack	*current;
 
-	if (*a == NULL || (*a)->next == NULL)
-		return ;
-	first = *a;
-	last = *a;
-	while (last->next != NULL)
+	pos = 0;
+	current = a;
+	while (current != NULL)
 	{
-		last = last->next;
+		if (current->value == target_val)
+			return (pos);
+		pos++;
+		current = current->next;
 	}
-	*a = first->next;
-	last->next = first;
-	first->next = NULL;
+	return (pos);
 }
 
-void	rra(t_stack **a)
+int	get_lowest_val(t_stack *a)
 {
-	t_stack	*before_last;
-	t_stack	*last;
+	int		lowest;
+	t_stack	*current;
 
-	if (*a == NULL || (*a)->next == NULL)
-		return ;
-	last = *a;
-	before_last = NULL;
-	while (last->next != NULL)
+	lowest = a->value;
+	current = a;
+	while (current != NULL)
 	{
-		before_last = last;
-		last = last->next;
+		if (current->value < lowest)
+			lowest = current->value;
+		current = current->next;
 	}
-	before_last->next = NULL;
-	last->next = *a;
-	(*a) = last;
+	return (lowest);
 }
 
 int	get_highest_val(t_stack *a)
@@ -78,4 +74,12 @@ void	sort_three(t_push_swap *ps)
 		op_rra(ps);
 	if (ps->a->value > ps->a->next->value)
 		op_sa(ps);
+}
+
+void	sort_four(t_push_swap *ps)
+{
+	t_stack	*lowest;
+
+	t_stack * a
+	lowest = get_lowest_val(ps->a)
 }
