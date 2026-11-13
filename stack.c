@@ -12,66 +12,106 @@
 
 #include "push_swap.h"
 
-int	stack_init(t_stack *s, int cap)
+t_stack	*stack_new(int value)
 {
-	s->data = ft_calloc(cap, sizeof(int));
-	if (!s->data)
+	t_stack	*node;
+
+	node = malloc(sizeof(t_stack));
+	if (!node)
+		return (NULL);
+	node->value = value;
+	node->next = NULL;
+	return (node);
+}
+
+t_stack	*stack_last(t_stack *s)
+{
+	while (s && s->next)
+		s = s->next;
+	return (s);
+}
+
+t_stack	*stack_dup(const t_stack *s)
+{
+	t_stack	*copy;
+
+	copy = NULL;
+	while (s)
+	{
+		if (stack_add_back(&copy, s->value))
+		{
+			stack_free(&copy);
+			return (NULL);
+		}
+		s = s->next;
+	}
+	return (copy);
+}
+
+void	stack_free(t_stack **s)
+{
+	t_stack	*next;
+
+	while (*s)
+	{
+		next = (*s)->next;
+		free(*s);
+		*s = next;
+	}
+}
+
+int	stack_push(t_stack **s, int value)
+{
+	t_stack	*node;
+
+	node = stack_new(value);
+	if (!node)
 		return (1);
-	s->size = 0;
-	s->cap = cap;
+	node->next = *s;
+	*s = node;
 	return (0);
 }
 
-void	stack_free(t_stack *s)
+int	stack_add_back(t_stack **s, int value)
 {
-	free(s->data);
-	s->data = NULL;
-	s->size = 0;
-	s->cap = 0;
-}
+	t_stack	*node;
+	t_stack	*last;
 
-int	stack_push(t_stack *s, int value)
-{
-	int	i;
-
-	if (s->size >= s->cap)
+	node = stack_new(value);
+	if (!node)
 		return (1);
-	i = s->size;
-	while (i > 0)
+	if (!*s)
 	{
-		s->data[i] = s->data[i - 1];
-		i--;
+		*s = node;
+		return (0);
 	}
-	s->data[0] = value;
-	s->size++;
+	last = stack_last(*s);
+	last->next = node;
 	return (0);
 }
 
-int	stack_pop(t_stack *s, int *value)
+int	stack_pop(t_stack **s, int *value)
 {
-	int	i;
+	t_stack	*node;
 
-	if (s->size <= 0)
+	if (!*s)
 		return (1);
-	*value = s->data[0];
-	i = 1;
-	while (i < s->size)
-	{
-		s->data[i - 1] = s->data[i];
-		i++;
-	}
-	s->size--;
+	node = *s;
+	*value = node->value;
+	*s = node->next;
+	free(node);
 	return (0);
 }
 
-void	stack_fill(t_stack *s, const int *values, int n)
+int	stack_size(const t_stack *s)
 {
-	int	i;
+	int	size;
 
-	i = n - 1;
-	while (i >= 0)
+	size = 0;
+	while (s)
 	{
-		stack_push(s, values[i]);
-		i--;
+		size++;
+		s = s->next;
 	}
+	return (size);
 }

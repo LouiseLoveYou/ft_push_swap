@@ -33,9 +33,8 @@ typedef struct s_config
 
 typedef struct s_stack
 {
-	int	*data;
-	int	size;
-	int	cap;
+	int				value;
+	struct s_stack	*next;
 }	t_stack;
 
 typedef struct s_counts
@@ -56,31 +55,34 @@ typedef struct s_counts
 
 typedef struct s_push_swap
 {
-	t_stack		a;
-	t_stack		b;
+	t_stack	*a;
+	t_stack	*b;
 	t_counts	counts;
 	double		disorder;
 }	t_push_swap;
 
-int	print_error(void);
-int	parse_flags(int argc, char **argv, t_config *cfg);
-int	*parse_numbers(int argc, char **argv, int start, int *n);
-int	count_numbers(int argc, char **argv, int start);
-int	fill_arg(char *arg, int *a, int *k);
-int	parse_int(const char *s, int *out, int len);
+int		print_error(void);
+int		parse_flags(int argc, char **argv, t_config *cfg);
+int		parse_numbers(int argc, char **argv, int start, t_stack **a);
+int		count_numbers(int argc, char **argv, int start);
+int		fill_arg(char *arg, t_stack **a);
+int		parse_int(const char *s, int *out, int len);
 
-int		stack_init(t_stack *s, int cap);
-void	stack_free(t_stack *s);
-int		stack_push(t_stack *s, int value);
-int		stack_pop(t_stack *s, int *value);
-void	stack_fill(t_stack *s, const int *values, int n);
+t_stack	*stack_new(int value);
+t_stack	*stack_last(t_stack *s);
+t_stack	*stack_dup(const t_stack *s);
+void	stack_free(t_stack **s);
+int		stack_push(t_stack **s, int value);
+int		stack_add_back(t_stack **s, int value);
+int		stack_pop(t_stack **s, int *value);
+int		stack_size(const t_stack *s);
 int		stack_is_sorted(const t_stack *s);
-int		rank_values(int *a, int n);
+int		rank_values(t_stack *s);
 
-double	compute_disorder(const int *a, int n);
+double	compute_disorder(const t_stack *a);
 
 void	print_op(char *name);
-void	rotate_down(t_stack *s);
+void	rotate_down(t_stack **s);
 void	op_sa(t_push_swap *ps);
 void	op_sb(t_push_swap *ps);
 void	op_ss(t_push_swap *ps);
@@ -93,6 +95,7 @@ void	op_rra(t_push_swap *ps);
 void	op_rrb(t_push_swap *ps);
 void	op_rrr(t_push_swap *ps);
 
+void	sort_three(t_push_swap *ps);
 void	sort_simple(t_push_swap *ps);
 void	sort_medium(t_push_swap *ps);
 void	sort_complex(t_push_swap *ps);
