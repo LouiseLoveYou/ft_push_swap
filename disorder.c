@@ -12,26 +12,28 @@
 
 #include "push_swap.h"
 
-double	compute_disorder(const int *a, int n)
+double	compute_disorder(const t_stack *a)
 {
-	long long	inversions;
-	long long	total;
-	int			i;
-	int			j;
+	long long		inversions;
+	long long		total;
+	const t_stack	*i;
+	const t_stack	*j;
+	int				n;
 
+	n = stack_size(a);
 	inversions = 0;
 	total = (long long) n * (n - 1) / 2;
-	i = 0;
-	while (i < n)
+	i = a;
+	while (i)
 	{
-		j = i + 1;
-		while (j < n)
+		j = i->next;
+		while (j)
 		{
-			if (a[i] > a[j])
+			if (i->value > j->value)
 				inversions++;
-			j++;
+			j = j->next;
 		}
-		i++;
+		i = i->next;
 	}
 	if (total == 0)
 		return (0.0);

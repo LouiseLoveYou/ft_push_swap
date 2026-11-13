@@ -14,7 +14,7 @@
 
 void	op_rra(t_push_swap *ps)
 {
-	if (ps->a.size < 2)
+	if (!ps->a || !ps->a->next)
 		return ;
 	rotate_down(&ps->a);
 	ps->counts.rra++;
@@ -24,7 +24,7 @@ void	op_rra(t_push_swap *ps)
 
 void	op_rrb(t_push_swap *ps)
 {
-	if (ps->b.size < 2)
+	if (!ps->b || !ps->b->next)
 		return ;
 	rotate_down(&ps->b);
 	ps->counts.rrb++;
@@ -34,7 +34,7 @@ void	op_rrb(t_push_swap *ps)
 
 void	op_rrr(t_push_swap *ps)
 {
-	if (ps->a.size < 2 || ps->b.size < 2)
+	if (!ps->a || !ps->a->next || !ps->b || !ps->b->next)
 		return ;
 	rotate_down(&ps->a);
 	rotate_down(&ps->b);

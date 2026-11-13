@@ -55,46 +55,46 @@ int	print_error(void)
 	return (1);
 }
 
-static int	has_duplicate(int *a, int n)
+static int	has_duplicate(const t_stack *a)
 {
-	int	i;
-	int	j;
+	const t_stack	*i;
+	const t_stack	*j;
 
-	i = 0;
-	while (i < n)
+	i = a;
+	while (i)
 	{
-		j = i + 1;
-		while (j < n)
+		j = i->next;
+		while (j)
 		{
-			if (a[i] == a[j])
+			if (i->value == j->value)
 				return (1);
-			j++;
+			j = j->next;
 		}
-		i++;
+		i = i->next;
 	}
 	return (0);
 }
 
-int	*parse_numbers(int argc, char **argv, int start, int *n)
+int	parse_numbers(int argc, char **argv, int start, t_stack **a)
 {
-	int	*a;
 	int	i;
-	int	k;
 
-	*n = count_numbers(argc, argv, start);
-	if (*n < 0)
-		return (NULL);
-	a = (int *) ft_calloc(*n, sizeof(int));
-	if (!a)
-		return (NULL);
+	if (count_numbers(argc, argv, start) < 0)
+		return (1);
 	i = start;
-	k = 0;
-	while (i < argc && !fill_arg(argv[i], a, &k))
-		i++;
-	if (i < argc || has_duplicate(a, *n))
+	while (i < argc)
 	{
-		free(a);
-		return (NULL);
+		if (fill_arg(argv[i], a))
+		{
+			stack_free(a);
+			return (1);
+		}
+		i++;
 	}
-	return (a);
+	if (has_duplicate(*a))
+	{
+		stack_free(a);
+		return (1);
+	}
+	return (0);
 }

@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static void	push_top(t_stack *from, t_stack *to)
+static void	push_top(t_stack **from, t_stack **to)
 {
 	int	value;
 
@@ -22,7 +22,7 @@ static void	push_top(t_stack *from, t_stack *to)
 
 void	op_pa(t_push_swap *ps)
 {
-	if (ps->b.size == 0)
+	if (!ps->b)
 		return ;
 	push_top(&ps->b, &ps->a);
 	ps->counts.pa++;
@@ -32,7 +32,7 @@ void	op_pa(t_push_swap *ps)
 
 void	op_pb(t_push_swap *ps)
 {
-	if (ps->a.size == 0)
+	if (!ps->a)
 		return ;
 	push_top(&ps->a, &ps->b);
 	ps->counts.pb++;

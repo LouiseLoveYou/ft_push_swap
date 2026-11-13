@@ -22,16 +22,16 @@ static void	swap_top(t_stack *s)
 {
 	int	tmp;
 
-	tmp = s->data[0];
-	s->data[0] = s->data[1];
-	s->data[0] = tmp;
+	tmp = s->value;
+	s->value = s->next->value;
+	s->next->value = tmp;
 }
 
 void	op_sa(t_push_swap *ps)
 {
-	if (ps->a.size < 2)
+	if (!ps->a || !ps->a->next)
 		return ;
-	swap_top(&ps->a);
+	swap_top(ps->a);
 	ps->counts.sa++;
 	ps->counts.total++;
 	print_op("sa");
@@ -39,9 +39,9 @@ void	op_sa(t_push_swap *ps)
 
 void	op_sb(t_push_swap *ps)
 {
-	if (ps->b.size < 2)
+	if (!ps->b || !ps->b->next)
 		return ;
-	swap_top(&ps->b);
+	swap_top(ps->b);
 	ps->counts.sb++;
 	ps->counts.total++;
 	print_op("sb");
@@ -49,10 +49,10 @@ void	op_sb(t_push_swap *ps)
 
 void	op_ss(t_push_swap *ps)
 {
-	if (ps->a.size < 2 || ps->b.size < 2)
+	if (!ps->a || !ps->a->next || !ps->b || !ps->b->next)
 		return ;
-	swap_top(&ps->a);
-	swap_top(&ps->b);
+	swap_top(ps->a);
+	swap_top(ps->b);
 	ps->counts.ss++;
 	ps->counts.total++;
 	print_op("ss");

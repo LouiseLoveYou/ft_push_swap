@@ -54,10 +54,11 @@ int	count_numbers(int argc, char **argv, int start)
 	return (count);
 }
 
-int	fill_arg(char *arg, int *a, int *k)
+int	fill_arg(char *arg, t_stack **a)
 {
 	int	j;
 	int	start;
+	int	value;
 
 	j = 0;
 	while (arg[j])
@@ -69,9 +70,10 @@ int	fill_arg(char *arg, int *a, int *k)
 		start = j;
 		while (arg[j] && !is_space(arg[j]))
 			j++;
-		if (parse_int(arg + start, &a[*k], j - start))
+		if (parse_int(arg + start, &value, j - start))
 			return (1);
-		(*k)++;
+		if (stack_add_back(a, value))
+			return (1);
 	}
 	return (0);
 }
