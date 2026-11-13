@@ -6,7 +6,7 @@
 /*   By: tobillet <tobillet@student.42lehavre.fr>  #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/11/12 13:11:51 by tobillet         #+#    #+#              */
-/*   Updated: 2026/11/13 11:15:57 by tobillet        ###   ########.fr        */
+/*   Updated: 2026/11/13 11:21:18 by tobillet        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,4 +20,12 @@ int	stack_init(t_stack *s, int cap)
 	s->size = 0;
 	s->cap = cap;
 	return (0);
+}
+
+void	stack_free(t_stack *s)
+{
+	free(s->data);
+	s->data = NULL;
+	s->size = 0;
+	s->cap = 0;
 }
