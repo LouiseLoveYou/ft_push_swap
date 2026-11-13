@@ -24,7 +24,8 @@ SRCS		= main.c \
 			  algo_medium.c \
 			  algo_complex.c \
 			  algo_adaptive.c \
-			  bench.c
+			  bench.c			\
+			  get_val.c
 
 OBJS		= $(SRCS:.c=.o)
 
