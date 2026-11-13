@@ -12,39 +12,40 @@
 
 #include "push_swap.h"
 
-static void	rotate_up(t_stack *s)
+static void	rotate_up(t_stack **s)
 {
-	int	tmp;
-	int	i;
+	t_stack	*first;
+	t_stack	*last;
 
-	tmp = s->data[0];
-	i = 1;
-	while (i < s->size)
-	{
-		s->data[i - 1] = s->data[i];
-		i++;
-	}
-	s->data[s->size - 1] = tmp;
+	first = *s;
+	*s = first->next;
+	last = stack_last(*s);
+	last->next = first;
+	first->next = NULL;
 }
 
-void	rotate_down(t_stack *s)
+void	rotate_down(t_stack **s)
 {
-	int	tmp;
-	int	i;
+	t_stack	*previous;
+	t_stack	*last;
 
-	tmp = s->data[s->size - 1];
-	i = s->size - 1;
-	while (i > 0)
+	if (!s || !*s || !(*s)->next)
+		return ;
+	previous = NULL;
+	last = *s;
+	while (last->next)
 	{
-		s->data[i] = s->data[i - 1];
-		i--;
+		previous = last;
+		last = last->next;
 	}
-	s->data[0] = tmp;
+	previous->next = NULL;
+	last->next = *s;
+	*s = last;
 }
 
 void	op_ra(t_push_swap *ps)
 {
-	if (ps->a.size < 2)
+	if (!ps->a || !ps->a->next)
 		return ;
 	rotate_up(&ps->a);
 	ps->counts.ra++;
@@ -54,7 +55,7 @@ void	op_ra(t_push_swap *ps)
 
 void	op_rb(t_push_swap *ps)
 {
-	if (ps->b.size < 2)
+	if (!ps->b || !ps->b->next)
 		return ;
 	rotate_up(&ps->b);
 	ps->counts.rb++;
@@ -64,7 +65,7 @@ void	op_rb(t_push_swap *ps)
 
 void	op_rr(t_push_swap *ps)
 {
-	if (ps->a.size < 2 || ps->b.size < 2)
+	if (!ps->a || !ps->a->next || !ps->b || !ps->b->next)
 		return ;
 	rotate_up(&ps->a);
 	rotate_up(&ps->b);

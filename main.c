@@ -23,57 +23,39 @@ static char	*strategy_name(int strategy)
 	return ("adaptive");
 }
 
-static int	is_sorted(int *a, int n)
+static void	print_numbers(const t_stack *a)
 {
-	int	i;
-
-	i = 0;
-	while (i + 1 < n)
-	{
-		if (a[i] > a[i + 1])
-			return (0);
-		i++;
-	}
-	return (1);
-}
-
-static void	print_numbers(int *a, int n)
-{
-	int	i;
-
 	ft_putstr_fd("[TEST] numbers:", 1);
-	i = 0;
-	while (i < n)
+	while (a)
 	{
 		ft_putchar_fd(' ', 1);
-		ft_putnbr_fd(a[i], 1);
-		i++;
+		ft_putnbr_fd(a->value, 1);
+		a = a->next;
 	}
 	ft_putchar_fd('\n', 1);
 }
 
-static void	print_test(int *a, int n, int strategy, int bench)
+static void	print_test(t_push_swap *ps, int strategy, int bench)
 {
 	ft_putstr_fd("[TEST] strategy: ", 1);
 	ft_putstr_fd(strategy_name(strategy), 1);
 	ft_putstr_fd("\n[TEST] bench: ", 1);
 	ft_putnbr_fd(bench, 1);
 	ft_putstr_fd("\n[TEST] count: ", 1);
-	ft_putnbr_fd(n, 1);
+	ft_putnbr_fd(stack_size(ps->a), 1);
 	ft_putstr_fd("\n[TEST] sorted: ", 1);
-	if (is_sorted(a, n))
+	if (stack_is_sorted(ps->a))
 		ft_putstr_fd("yes\n", 1);
 	else
 		ft_putstr_fd("no\n", 1);
-	print_numbers(a, n);
+	print_numbers(ps->a);
 	ft_putstr_fd("[TEST] TODO: tri non implemente\n", 1);
 }
 
 int	main(int argc, char **argv)
 {
 	t_config	cfg;
-	int			*a;
-	int			n;
+	t_push_swap	ps;
 	int			start;
 
 	if (argc < 2)
@@ -81,10 +63,11 @@ int	main(int argc, char **argv)
 	start = parse_flags(argc, argv, &cfg);
 	if (start < 0)
 		return (print_error());
-	a = parse_numbers(argc, argv, start, &n);
-	if (!a)
+	ft_memset(&ps, 0, sizeof(ps));
+	if (parse_numbers(argc, argv, start, &ps.a))
 		return (print_error());
-	print_test(a, n, cfg.strategy, cfg.bench);
-	free(a);
+	print_test(&ps, cfg.strategy, cfg.bench);
+	stack_free(&ps.a);
+	stack_free(&ps.b);
 	return (0);
 }

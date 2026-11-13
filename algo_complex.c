@@ -28,19 +28,19 @@ void	sort_complex(t_push_swap *ps)
 	int	bits;
 	int	count;
 
-	bits = count_bits(ps->a.size);
+	bits = count_bits(stack_size(ps->a));
 	bit = 0;
 	while (bit < bits)
 	{
-		count = ps->a.size;
+		count = stack_size(ps->a);
 		while (count-- > 0)
 		{
-			if ((ps->a.data[0] >> bit) & 1)
-				op_ra(pa);
+			if ((ps->a->value >> bit) & 1)
+				op_ra(ps);
 			else
 				op_pb(ps);
 		}
-		while (ps->b.size > 0)
+		while (ps->b)
 			op_pa(ps);
 		bit++;
 	}

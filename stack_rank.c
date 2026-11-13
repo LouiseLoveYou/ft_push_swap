@@ -14,74 +14,39 @@
 
 int	stack_is_sorted(const t_stack *s)
 {
-	int	i;
-
-	i = 0;
-	while (i + 1 < s->size)
+	while (s && s->next)
 	{
-		if (s->data[i] > s->data[i + 1])
+		if (s->value > s->next->value)
 			return (0);
-		i++;
+		s = s->next;
 	}
 	return (1);
 }
 
-static int	compare_int(const void *a, const void *b)
+int	rank_values(t_stack *s)
 {
-	int	ia;
-	int	ib;
+	t_stack	*copy;
+	t_stack	*current;
+	t_stack	*reference;
+	int		rank;
 
-	ia = *(const int *) a;
-	ib = *(const int *) b;
-	if (ia < ib)
-		return (-1);
-	if (ia > ib)
+	copy = stack_dup(s);
+	if (!copy && s)
 		return (1);
-	return (0);
-}
-
-static int	rank_of(const int *sorted, int n, int value)
-{
-	int	lo;
-	int	hi;
-	int	mid;
-
-	lo = 0;
-	hi = n - 1;
-	while (lo <= hi)
+	current = s;
+	while (current)
 	{
-		mid = (lo + hi) / 2;
-		if (sorted[mid] == value)
-			return (mid);
-		if (sorted[mid] < value)
-			lo = mid + 1;
-		else
-			hi = mid - 1;
+		rank = 0;
+		reference = copy;
+		while (reference)
+		{
+			if (reference->value < current->value)
+				rank++;
+			reference = reference->next;
+		}
+		current->value = rank;
+		current = current->next;
 	}
-	return (-1);
-}
-
-int	rank_values(int *a, int n)
-{
-	int	*sorted;
-	int	i;
-
-	sorted = ft_calloc(n, sizeof(int));
-	if (!sorted)
-		return (1);
-	i = 0;
-	while (i < n)
-	{
-		sorted[i] = a[i];
-		i++;
-	}
-	qsort(sorted, n, sizeof(int), compare_int);
-	i = 0;
-	while (i < n)
-	{
-		a[i] = rank_of(sorted, n, a[i]);
-		i++;
-	}
-	free(sorted);
+	stack_free(&copy);
 	return (0);
 }
