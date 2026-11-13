@@ -24,6 +24,9 @@ jobs:
           pr_body: "Fusion automatique de la branche de développeur vers main."
           pr_allow_empty: true
 
+      - name: Restaurer les permissions du workspace
+        run: sudo chown -R "$USER":"$USER" "$GITHUB_WORKSPACE"
+
       - name: Synchroniser main vers les autres branches
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
