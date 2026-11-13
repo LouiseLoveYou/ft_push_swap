@@ -55,8 +55,8 @@ typedef struct s_counts
 
 typedef struct s_push_swap
 {
-	t_stack	*a;
-	t_stack	*b;
+	t_stack		*a;
+	t_stack		*b;
 	t_counts	counts;
 	double		disorder;
 }	t_push_swap;
