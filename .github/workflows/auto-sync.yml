@@ -5,6 +5,10 @@ on:
     branches-ignore:
       - 'main' # Se déclenche sur un push de n'importe quelle branche, SAUF main
 
+permissions:
+  contents: write
+  pull-requests: write
+
 jobs:
   auto-merge-and-sync:
     runs-on: ubuntu-latest
@@ -15,14 +19,14 @@ jobs:
           fetch-depth: 0
 
       - name: Créer et merger la Pull Request vers main
-        uses: repo-sync/pull-request@v2
-        with:
-          source_branch: "${{ github.ref_name }}"
-          destination_branch: "main"
-          github_token: "${{ secrets.GITHUB_TOKEN }}"
-          pr_title: "Auto-PR : ${{ github.ref_name }} vers main"
-          pr_body: "Fusion automatique de la branche de développeur vers main."
-          pr_allow_empty: true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Crée la PR (ignore l'erreur si elle existe déjà pour cette branche)
+          gh pr create --base main --head "${{ github.ref_name }}" --title "Auto-PR : ${{ github.ref_name }} vers main" --body "Fusion automatique de la branche de développeur vers main." || true
+          
+          # Fusionne la PR automatiquement
+          gh pr merge "${{ github.ref_name }}" --auto --merge || gh pr merge "${{ github.ref_name }}" --merge
 
       - name: Restaurer les permissions du workspace
         run: sudo chown -R "$(id -u):$(id -g)" "$GITHUB_WORKSPACE"
@@ -55,7 +59,7 @@ jobs:
             
             if [ "$skip" == "false" ]; then
               echo "Mise à jour de la branche : $clean_branch"
-              git checkout "$clean_branch"
+              git checkout -B "$clean_branch" "origin/$clean_branch"
               git merge origin/main --no-edit || { echo "Conflit détecté sur $clean_branch"; git merge --abort; exit 1; }
               git push origin "$clean_branch"
             fi
