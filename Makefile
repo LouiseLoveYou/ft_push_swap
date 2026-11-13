@@ -2,9 +2,16 @@ NAME		= push_swap
 
 CC			= cc
 CFLAGS		= -Wall -Wextra -Werror
+LIBFT_DIR	= Libft
+LIBFT		= $(LIBFT_DIR)/libft.a
+LIBFT_SRCS	= $(wildcard $(LIBFT_DIR)/*.c) $(wildcard $(LIBFT_DIR)/*.h) \
+			  $(LIBFT_DIR)/Makefile
+INC			= -I $(LIBFT_DIR)
 
 SRCS		= main.c \
 			  parsing.c \
+			  parsing_numbers.c \
+			  parsing_int.c \
 			  stack.c \
 			  operations.c \
 			  disorder.c \
@@ -18,16 +25,21 @@ OBJS		= $(SRCS:.c=.o)
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
-	$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+$(LIBFT): $(LIBFT_SRCS)
+	$(MAKE) -C $(LIBFT_DIR)
 
-%.o: %.c push_swap.h
-	$(CC) $(CFLAGS) -c $< -o $@
+$(NAME): $(LIBFT) $(OBJS)
+	$(CC) $(CFLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+
+%.o: %.c push_swap.h $(LIBFT_DIR)/libft.h
+	$(CC) $(CFLAGS) $(INC) -c $< -o $@
 
 clean:
+	$(MAKE) -C $(LIBFT_DIR) clean
 	rm -f $(OBJS)
 
 fclean: clean
+	$(MAKE) -C $(LIBFT_DIR) fclean
 	rm -f $(NAME)
 
 re: fclean all
