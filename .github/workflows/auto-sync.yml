@@ -2,8 +2,8 @@ name: Auto PR et Sync Branches
 
 on:
   push:
-    branches:
-      - 'feature/**' # Modifiez selon le nom de vos branches de départ (ex: dev, feature/*)
+    branches-ignore:
+      - 'main' # Se déclenche sur un push de n'importe quelle branche, SAUF main
 
 jobs:
   auto-merge-and-sync:
@@ -21,9 +21,8 @@ jobs:
           destination_branch: "main"
           github_token: "${{ secrets.GITHUB_TOKEN }}"
           pr_title: "Auto-PR : ${{ github.ref_name }} vers main"
-          pr_body: "Fusion automatique déclenchée par un push."
+          pr_body: "Fusion automatique de la branche de développeur vers main."
           pr_allow_empty: true
-          # Note : Ce système gère la création/merge. Assurez-vous que vos branches ne se suppriment pas automatiquement dans les paramètres du dépôt.
 
       - name: Synchroniser main vers les autres branches
         env:
@@ -35,10 +34,10 @@ jobs:
           # Récupération de toutes les branches distantes
           git fetch origin
           
-          # Liste des branches à exclure de la mise à jour automatique (main et la branche source actuelle)
+          # Liste des branches à exclure (main et la branche du dev qui vient de pousser)
           EXCLUDED_BRANCHES=("main" "${{ github.ref_name }}")
           
-          # Récupération de toutes les branches distantes
+          # Boucle sur toutes les branches distantes
           for branch in $(git branch -r | grep 'origin/' | grep -v 'HEAD'); do
             clean_branch=${branch#origin/}
             
