@@ -13,6 +13,7 @@ SRCS		= main.c \
 			  parsing_numbers.c \
 			  parsing_int.c \
 			  stack.c \
+			  stack_more.c \
 			  stack_rank.c \
 			  operations.c \
 			  operations_push.c \
