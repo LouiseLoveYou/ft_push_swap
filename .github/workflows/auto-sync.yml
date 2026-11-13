@@ -25,7 +25,7 @@ jobs:
           pr_allow_empty: true
 
       - name: Restaurer les permissions du workspace
-        run: sudo chown -R "$USER":"$USER" "$GITHUB_WORKSPACE"
+        run: sudo chown -R "$(id -u):$(id -g)" "$GITHUB_WORKSPACE"
 
       - name: Synchroniser main vers les autres branches
         env:
