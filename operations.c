@@ -3,10 +3,10 @@
 /*                                                       :::      ::::::::    */
 /*   operations.c                                      :+:      :+:    :+:    */
 /*                                                   +:+ +:+         +:+      */
-/*   By: tobillet <tobillet@student.42lehavre.fr>  #+#  +:+       +#+         */
+/*   By: kisella <kisella@student.42lehavre.fr>    #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/11/12 13:11:44 by tobillet         #+#    #+#              */
-/*   Updated: 2026/11/13 10:52:26 by tobillet        ###   ########.fr        */
+/*   Created: 2026/11/12 13:11:44 by kisella          #+#    #+#              */
+/*   Updated: 2026/11/13 10:48:43 by kisella         ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
