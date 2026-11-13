@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   algo_simple.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kisella <kisella@student.42lehavre.fr>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/12 13:12:04 by kisella           #+#    #+#             */
-/*   Updated: 2026/11/13 12:10:04 by kisella          ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   algo_simple.c                                     :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: kisella <kisella@student.42lehavre.fr>    #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/11/12 13:12:04 by kisella          #+#    #+#              */
+/*   Updated: 2026/11/13 13:14:49 by kisella         ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,5 +71,11 @@ void	sort_three(t_stack **a)
 {
 	int	higest;
 
-	higest = get_highest_val(*a)
+	higest = get_highest_val(*a);
+	if ((*a)->value == higest)
+		ra(a);
+	else if ((*a)->next->value == higest)
+		rra(a);
+	if ((*a)->value > (*a)->next->value)
+		op_sa(a);
 }
