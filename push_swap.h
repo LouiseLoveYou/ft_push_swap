@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                       :::      ::::::::    */
-/*   push_swap.h                                       :+:      :+:    :+:    */
-/*                                                   +:+ +:+         +:+      */
-/*   By: tobillet <tobillet@student.42lehavre.fr>  #+#  +:+       +#+         */
-/*                                               +#+#+#+#+#+   +#+            */
-/*   Created: 2026/11/13 10:51:46 by tobillet         #+#    #+#              */
-/*   Updated: 2026/11/13 10:51:46 by tobillet        ###   ########.fr        */
+/*                                                        :::      ::::::::   */
+/*   push_swap.h                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: kisella <kisella@student.42lehavre.fr>     +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/11/13 10:51:46 by kisella           #+#    #+#             */
+/*   Updated: 2026/11/13 16:12:41 by kisella          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,18 +55,18 @@ typedef struct s_counts
 
 typedef struct s_push_swap
 {
-	t_stack	*a;
-	t_stack	*b;
+	t_stack		*a;
+	t_stack		*b;
 	t_counts	counts;
 	double		disorder;
 }	t_push_swap;
 
-int		print_error(void);
-int		parse_flags(int argc, char **argv, t_config *cfg);
-int		parse_numbers(int argc, char **argv, int start, t_stack **a);
-int		count_numbers(int argc, char **argv, int start);
-int		fill_arg(char *arg, t_stack **a);
-int		parse_int(const char *s, int *out, int len);
+int	print_error(void);
+int	parse_flags(int argc, char **argv, t_config *cfg);
+int	parse_numbers(int argc, char **argv, int start, t_stack **a);
+int	count_numbers(int argc, char **argv, int start);
+int	fill_arg(char *arg, t_stack **a);
+int	parse_int(const char *s, int *out, int len);
 
 t_stack	*stack_new(int value);
 t_stack	*stack_last(t_stack *s);
@@ -97,6 +97,12 @@ void	op_rrr(t_push_swap *ps);
 
 void	sort_three(t_push_swap *ps);
 void	sort_simple(t_push_swap *ps);
+
+void	push_chunks_to_b(t_push_swap *ps, int range);
+
+int	get_highest_val(t_stack *a);
+int	get_lowest_val(t_stack *a);
+
 void	sort_medium(t_push_swap *ps);
 void	sort_complex(t_push_swap *ps);
 void	sort_adaptive(t_push_swap *ps);

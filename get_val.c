@@ -6,7 +6,7 @@
 /*   By: kisella <kisella@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/13 14:39:50 by kisella           #+#    #+#             */
-/*   Updated: 2026/11/13 14:40:04 by kisella          ###   ########.fr       */
+/*   Updated: 2026/11/13 16:10:10 by kisella          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,17 @@ int	get_highest_val(t_stack *a)
 		current = current->next;
 	}
 	return (highest);
+}
+
+int	stack_size(t_stack *stack)
+{
+	int	count;
+
+	count = 0;
+	while (stack != NULL)
+	{
+		count++;
+		stack = stack->next;
+	}
+	return (count);
 }
