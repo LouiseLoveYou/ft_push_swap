@@ -23,15 +23,15 @@ static char	*strategy_name(t_strategy strategy)
 	return ("Adaptive");
 }
 
+/*	\302\262 is the UTF-8 "squared" sign, \342\210\232 the square
+	root sign, matching the notation of the subject. */
 static char	*complexity_name(t_strategy strategy)
 {
 	if (strategy == SIMPLE)
-		return ("O(n^2)");
+		return ("O(n\302\262)");
 	if (strategy == MEDIUM)
-		return ("O(n sqrt(n))");
-	if (strategy == COMPLEX)
-		return ("O(n log(n))");
-	return ("O(n^2) / O(n sqrt(n)) / O(n log(n))");
+		return ("O(n\342\210\232n)");
+	return ("O(n log n)");
 }
 
 static void	put_disorder(double disorder)
@@ -84,7 +84,7 @@ void	print_bench(const t_push_swap *ps, t_strategy strategy)
 	put_disorder(ps->disorder);
 	ft_putstr_fd("\n[bench] strategy: ", 2);
 	ft_putstr_fd(strategy_name(strategy), 2);
-	ft_putstr_fd("\n[bench] complexity: ", 2);
+	ft_putstr_fd(" / ", 2);
 	ft_putstr_fd(complexity_name(ps->used), 2);
 	ft_putstr_fd("\n[bench] total_ops: ", 2);
 	ft_putnbr_fd((int) ps->counts.total, 2);

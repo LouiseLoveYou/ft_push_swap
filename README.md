@@ -48,9 +48,10 @@ The bundled `Libft` is compiled through its own Makefile and linked to the binar
   `./push_swap "3 2 1"` and `./push_swap 3 2 1` behave identically. The first argument is
   the top of stack `a`.
 - Operations are printed on **stdout**, one per line and nothing else.
-- `--bench` prints the benchmark on **stderr**: disorder (two decimals), strategy name,
-  complexity class, total number of operations and the count of each operation type.
-  stdout still contains only the operations.
+- `--bench` prints the benchmark on **stderr**: disorder (two decimals), strategy name and
+  its theoretical complexity class on the same line (`Adaptive / O(n√n)`), total number of
+  operations and the count of each operation type. stdout still contains only the
+  operations.
 - With no argument, nothing is printed and the prompt comes back.
 - Invalid input (non-integer, value outside the `int` range, duplicate, unknown flag)
   prints `Error` followed by a newline on **stderr** and exits with status 1.
@@ -81,8 +82,7 @@ $ ARG="4 67 3 87 23"; ./push_swap --adaptive $ARG | wc -l
 
 $ ./push_swap --bench 2 1 3 6 5 8 2>&1 >/dev/null
 [bench] disorder: 13.33%
-[bench] strategy: Adaptive
-[bench] complexity: O(n^2)
+[bench] strategy: Adaptive / O(n²)
 [bench] total_ops: 16
 [bench] sa: 0 sb: 0 ss: 0 pa: 6 pb: 6
 [bench] ra: 3 rb: 0 rr: 0 rra: 1 rrb: 0 rrr: 0
@@ -169,8 +169,10 @@ The disorder is measured once, then the strategy dispatches:
 | 0.2 ≤ disorder < 0.5 | chunk-based sort | O(n√n) |
 | disorder ≥ 0.5 | radix sort | O(n log n) |
 
-When the simple strategy is selected, inputs of 5 elements or fewer use the dedicated
-`sort_three` / `sort_four` / `sort_five` sequences instead of the generic selection loop.
+Inputs of 5 elements or fewer always use the dedicated `sort_three` / `sort_four` /
+`sort_five` sequences, whatever strategy is selected: at that size the generic loops are
+never competitive (`2 1` needs exactly one `sa`, not a radix pass). The class printed by
+`--bench` stays the one of the regime selected by the disorder, as the subject requires.
 
 **Why these thresholds:** the disorder is the proportion of inverted pairs, i.e. the
 amount of work an exchange-based sort will have to do. On a nearly sorted stack
