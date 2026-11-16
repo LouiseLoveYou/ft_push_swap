@@ -12,10 +12,8 @@
 
 #include "push_swap.h"
 
-static t_strategy	choose_strategy(t_push_swap *ps, int size)
+static t_strategy	choose_strategy(t_push_swap *ps)
 {
-	if (size <= 5)
-		return (SIMPLE);
 	if (ps->disorder < 0.2)
 		return (SIMPLE);
 	if (ps->disorder < 0.5)
@@ -25,7 +23,7 @@ static t_strategy	choose_strategy(t_push_swap *ps, int size)
 
 void	sort_adaptive(t_push_swap *ps)
 {
-	ps->used = choose_strategy(ps, stack_size(ps->a));
+	ps->used = choose_strategy(ps);
 	if (ps->used == SIMPLE)
 		sort_simple(ps, stack_size(ps->a));
 	else if (ps->used == MEDIUM)
