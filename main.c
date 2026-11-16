@@ -6,11 +6,19 @@
 /*   By: tobillet <tobillet@student.42lehavre.fr>  #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/11/13 13:36:58 by tobillet         #+#    #+#              */
-/*   Updated: 2026/11/13 13:37:15 by tobillet        ###   ########.fr        */
+/*   Updated: 2026/11/16 11:17:37 by tobillet        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+
+static long	count_operations(const t_counts *counts)
+{
+	return (counts->sa + counts->sb + counts->ss
+		+ counts->pa + counts->pb
+		+ counts->ra + counts->rb + counts->rr
+		+ counts->rra + counts->rrb + counts->rrr);
+}
 
 static int	init_push_swap(t_push_swap *ps, int argc, char **argv, int start)
 {
@@ -43,6 +51,7 @@ int	main(int argc, char **argv)
 		return (print_error());
 	if (!stack_is_sorted(ps.a))
 		run_strategy(&ps, cfg.strategy);
+	ps.counts.total = count_operations(&ps.counts);
 	if (cfg.bench)
 		print_bench(&ps, cfg.strategy);
 	stack_free(&ps.a);
