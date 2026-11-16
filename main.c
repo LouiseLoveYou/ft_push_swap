@@ -42,6 +42,8 @@ int	main(int argc, char **argv)
 	if (init_push_swap(&ps, argc, argv, start))
 		return (print_error());
 	ps.used = cfg.strategy;
+	if (ps.used == ADAPTIVE)
+		ps.used = choose_strategy(&ps);
 	if (!stack_is_sorted(ps.a))
 		run_strategy(&ps, cfg.strategy);
 	if (cfg.bench)
