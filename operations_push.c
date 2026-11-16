@@ -27,7 +27,7 @@ void	op_pa(t_push_swap *ps)
 	push_top(&ps->b, &ps->a);
 	ps->counts.pa++;
 	ps->counts.total++;
-	print_op("pa");
+	print_op(ps, "pa");
 }
 
 void	op_pb(t_push_swap *ps)
@@ -37,5 +37,5 @@ void	op_pb(t_push_swap *ps)
 	push_top(&ps->a, &ps->b);
 	ps->counts.pb++;
 	ps->counts.total++;
-	print_op("pb");
+	print_op(ps, "pb");
 }

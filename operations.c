@@ -12,8 +12,10 @@
 
 #include "push_swap.h"
 
-void	print_op(char *name)
+void	print_op(t_push_swap *ps, char *name)
 {
+	if (ps->quiet)
+		return ;
 	ft_putstr_fd(name, 1);
 	ft_putchar_fd('\n', 1);
 }
@@ -34,7 +36,7 @@ void	op_sa(t_push_swap *ps)
 	swap_top(ps->a);
 	ps->counts.sa++;
 	ps->counts.total++;
-	print_op("sa");
+	print_op(ps, "sa");
 }
 
 void	op_sb(t_push_swap *ps)
@@ -44,7 +46,7 @@ void	op_sb(t_push_swap *ps)
 	swap_top(ps->b);
 	ps->counts.sb++;
 	ps->counts.total++;
-	print_op("sb");
+	print_op(ps, "sb");
 }
 
 void	op_ss(t_push_swap *ps)
@@ -55,5 +57,5 @@ void	op_ss(t_push_swap *ps)
 	swap_top(ps->b);
 	ps->counts.ss++;
 	ps->counts.total++;
-	print_op("ss");
+	print_op(ps, "ss");
 }

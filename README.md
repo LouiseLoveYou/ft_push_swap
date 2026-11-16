@@ -78,7 +78,7 @@ pa
 pa
 
 $ ARG="4 67 3 87 23"; ./push_swap --adaptive $ARG | wc -l
-13
+9
 
 $ ./push_swap --bench 2 1 3 6 5 8 2>&1 >/dev/null
 [bench] disorder: 13.33%

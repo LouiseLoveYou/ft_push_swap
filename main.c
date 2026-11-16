@@ -6,7 +6,7 @@
 /*   By: tobillet <tobillet@student.42lehavre.fr>  #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/11/13 13:36:58 by tobillet         #+#    #+#              */
-/*   Updated: 2026/11/16 11:17:37 by tobillet        ###   ########.fr        */
+/*   Updated: 2026/11/16 15:32:04 by tobillet        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,12 @@ static int	init_push_swap(t_push_swap *ps, int argc, char **argv, int start)
 	return (0);
 }
 
+void	print_ops_count(const t_push_swap *ps)
+{
+	ft_putnbr_fd((int) ps->counts.total, 1);
+	ft_putchar_fd('\n', 1);
+}
+
 int	main(int argc, char **argv)
 {
 	t_config	cfg;
@@ -42,6 +48,7 @@ int	main(int argc, char **argv)
 	if (init_push_swap(&ps, argc, argv, start))
 		return (print_error());
 	ps.used = cfg.strategy;
+	ps.quiet = cfg.calcule;
 	if (ps.used == ADAPTIVE)
 		ps.used = choose_strategy(&ps);
 	if (!stack_is_sorted(ps.a))
