@@ -227,12 +227,13 @@ Both learners took part in the design of the strategies and reviewed the whole c
 
 - **tobillet (Tom Billet)** — parsing and validation (`parsing.c`, `parsing_numbers.c`,
   `parsing_int.c`), linked-list stacks (`stack.c`, `stack_more.c`, `stack_rank.c`),
-  disorder metric (`disorder.c`), radix sort (`algo_complex.c`), adaptive dispatch
-  (`algo_adaptive.c`), `--bench` output (`bench.c`), `main.c`, build system and Libft
-  integration.
+  disorder metric (`disorder.c`),  adaptive dispatch (`algo_adaptive.c`), 
+  `--bench` output (`bench.c`), `main.c`, build system and Libft integration.
+
 - **kisella (Killian Sella)** — Push_swap operations (`operations.c`), dedicated small-size
   sorts `sort_three` / `sort_four` / `sort_five` (`algo_simple.c`), chunk-based medium
-  strategy (`algo_medium.c`), value helpers (`get_val.c`), shared header and Makefile.
+  strategy (`algo_medium.c`), radix sort (`algo_complex.c`), value helpers (`get_val.c`), 
+  shared header and Makefile.
 
 ## Resources
 
