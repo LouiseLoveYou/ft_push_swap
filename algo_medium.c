@@ -6,7 +6,7 @@
 /*   By: kisella <kisella@student.42lehavre.fr>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/11/12 13:12:07 by kisella           #+#    #+#             */
-/*   Updated: 2026/11/13 16:33:31 by kisella          ###   ########.fr       */
+/*   Updated: 2026/11/16 10:28:52 by kisella          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,40 @@ void	push_chunks_to_b(t_push_swap *ps, int range)
 		else
 			op_ra(ps);
 	}
+}
+
+void	push_back_to_a(t_push_swap *ps)
+{
+	int	max;
+	int	pos;
+	int	size;
+
+	while (ps->b != NULL)
+	{
+		max = get_highest_val(ps->b);
+		pos = get_val_position(ps->b, max);
+		size = stack_size(ps->b);
+		while (ps->b->value != max)
+		{
+			if (pos <= size / 2)
+				op_rb(ps);
+			else
+				op_rrb(ps);
+		}
+		op_pa(ps);
+	}
+}
+
+void	sort_medium(t_push_swap *ps)
+{
+	int	size;
+	int	range;
+
+	size = stack_size(ps->a);
+	if (size <= 100)
+		range = 15;
+	else
+		range = 35;
+	push_chunks_to_b(ps, range);
+	push_back_to_a(ps);
 }
