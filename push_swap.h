@@ -1,19 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   push_swap.h                                        :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: kisella <kisella@student.42lehavre.fr>     +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/11/13 10:51:46 by kisella           #+#    #+#             */
-/*   Updated: 2026/11/13 16:12:41 by kisella          ###   ########.fr       */
+/*                                                       :::      ::::::::    */
+/*   push_swap.h                                       :+:      :+:    :+:    */
+/*                                                   +:+ +:+         +:+      */
+/*   By: tobillet <tobillet@student.42lehavre.fr>  #+#  +:+       +#+         */
+/*                                               +#+#+#+#+#+   +#+            */
+/*   Created: 2026/11/13 10:51:46 by tobillet         #+#    #+#              */
+/*   Updated: 2026/11/16 11:17:18 by tobillet        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PUSH_SWAP_H
 # define PUSH_SWAP_H
 
-# include "libft.h"
+# include "Libft/libft.h"
 # include <limits.h>
 # include <stdlib.h>
 
@@ -96,12 +96,13 @@ void	op_rrb(t_push_swap *ps);
 void	op_rrr(t_push_swap *ps);
 
 void	sort_three(t_push_swap *ps);
-void	sort_simple(t_push_swap *ps);
+void	sort_simple(t_push_swap *ps, int size);
 
 void	push_chunks_to_b(t_push_swap *ps, int range);
 
 int	get_highest_val(t_stack *a);
 int	get_lowest_val(t_stack *a);
+int	get_val_position(t_stack *a, int target_val);
 
 void	sort_medium(t_push_swap *ps);
 void	sort_complex(t_push_swap *ps);

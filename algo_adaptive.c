@@ -18,9 +18,9 @@ void	sort_adaptive(t_push_swap *ps)
 
 	size = stack_size(ps->a);
 	if (size <= 5)
-		sort_simple(ps);
+		sort_simple(ps, size);
 	else if (ps->disorder < 0.2)
-		sort_simple(ps);
+		sort_simple(ps, size);
 	else if (ps->disorder < 0.5)
 		sort_medium(ps);
 	else
@@ -30,7 +30,7 @@ void	sort_adaptive(t_push_swap *ps)
 void	run_strategy(t_push_swap *ps, t_strategy strategy)
 {
 	if (strategy == SIMPLE)
-		sort_simple(ps);
+		sort_simple(ps, stack_size(ps->a));
 	else if (strategy == MEDIUM)
 		sort_medium(ps);
 	else if (strategy == COMPLEX)
