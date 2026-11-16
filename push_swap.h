@@ -6,7 +6,7 @@
 /*   By: tobillet <tobillet@student.42lehavre.fr>  #+#  +:+       +#+         */
 /*                                               +#+#+#+#+#+   +#+            */
 /*   Created: 2026/11/13 10:51:46 by tobillet         #+#    #+#              */
-/*   Updated: 2026/11/16 11:17:18 by tobillet        ###   ########.fr        */
+/*   Updated: 2026/11/16 11:41:39 by tobillet        ###   ########.fr        */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,56 +59,58 @@ typedef struct s_push_swap
 	t_stack		*b;
 	t_counts	counts;
 	double		disorder;
+	t_strategy	used;
 }	t_push_swap;
 
-int	print_error(void);
-int	parse_flags(int argc, char **argv, t_config *cfg);
-int	parse_numbers(int argc, char **argv, int start, t_stack **a);
-int	count_numbers(int argc, char **argv, int start);
-int	fill_arg(char *arg, t_stack **a);
-int	parse_int(const char *s, int *out, int len);
+int			print_error(void);
+int			parse_flags(int argc, char **argv, t_config *cfg);
+int			parse_numbers(int argc, char **argv, int start, t_stack **a);
+int			count_numbers(int argc, char **argv, int start);
+int			fill_arg(char *arg, t_stack **a);
+int			parse_int(const char *s, int *out, int len);
 
-t_stack	*stack_new(int value);
-t_stack	*stack_last(t_stack *s);
-t_stack	*stack_dup(const t_stack *s);
-void	stack_free(t_stack **s);
-int		stack_push(t_stack **s, int value);
-int		stack_add_back(t_stack **s, int value);
-int		stack_pop(t_stack **s, int *value);
-int		stack_size(const t_stack *s);
-int		stack_is_sorted(const t_stack *s);
-int		rank_values(t_stack *s);
+t_stack		*stack_new(int value);
+t_stack		*stack_last(t_stack *s);
+t_stack		*stack_dup(const t_stack *s);
+void		stack_free(t_stack **s);
+int			stack_push(t_stack **s, int value);
+int			stack_add_back(t_stack **s, int value);
+int			stack_pop(t_stack **s, int *value);
+int			stack_size(const t_stack *s);
+int			stack_is_sorted(const t_stack *s);
+int			rank_values(t_stack *s);
 
-double	compute_disorder(const t_stack *a);
+double		compute_disorder(const t_stack *a);
 
-void	print_op(char *name);
-void	rotate_down(t_stack **s);
-void	op_sa(t_push_swap *ps);
-void	op_sb(t_push_swap *ps);
-void	op_ss(t_push_swap *ps);
-void	op_pa(t_push_swap *ps);
-void	op_pb(t_push_swap *ps);
-void	op_ra(t_push_swap *ps);
-void	op_rb(t_push_swap *ps);
-void	op_rr(t_push_swap *ps);
-void	op_rra(t_push_swap *ps);
-void	op_rrb(t_push_swap *ps);
-void	op_rrr(t_push_swap *ps);
+void		print_op(char *name);
+void		rotate_down(t_stack **s);
+void		op_sa(t_push_swap *ps);
+void		op_sb(t_push_swap *ps);
+void		op_ss(t_push_swap *ps);
+void		op_pa(t_push_swap *ps);
+void		op_pb(t_push_swap *ps);
+void		op_ra(t_push_swap *ps);
+void		op_rb(t_push_swap *ps);
+void		op_rr(t_push_swap *ps);
+void		op_rra(t_push_swap *ps);
+void		op_rrb(t_push_swap *ps);
+void		op_rrr(t_push_swap *ps);
 
-void	sort_three(t_push_swap *ps);
-void	sort_simple(t_push_swap *ps, int size);
+void		sort_three(t_push_swap *ps);
+void		sort_simple(t_push_swap *ps, int size);
+void		sort_selection(t_push_swap *ps);
 
-void	push_chunks_to_b(t_push_swap *ps, int range);
+void		push_chunks_to_b(t_push_swap *ps, int range);
 
-int	get_highest_val(t_stack *a);
-int	get_lowest_val(t_stack *a);
-int	get_val_position(t_stack *a, int target_val);
+int			get_highest_val(t_stack *a);
+int			get_lowest_val(t_stack *a);
+int			get_val_position(t_stack *a, int target_val);
 
-void	sort_medium(t_push_swap *ps);
-void	sort_complex(t_push_swap *ps);
-void	sort_adaptive(t_push_swap *ps);
-void	run_strategy(t_push_swap *ps, t_strategy strategy);
+void		sort_medium(t_push_swap *ps);
+void		sort_complex(t_push_swap *ps);
+void		sort_adaptive(t_push_swap *ps);
+void		run_strategy(t_push_swap *ps, t_strategy strategy);
 
-void	print_bench(const t_push_swap *ps, t_strategy strategy);
+void		print_bench(const t_push_swap *ps, t_strategy strategy);
 
 #endif

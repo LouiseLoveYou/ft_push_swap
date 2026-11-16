@@ -12,14 +12,6 @@
 
 #include "push_swap.h"
 
-static long	count_operations(const t_counts *counts)
-{
-	return (counts->sa + counts->sb + counts->ss
-		+ counts->pa + counts->pb
-		+ counts->ra + counts->rb + counts->rr
-		+ counts->rra + counts->rrb + counts->rrr);
-}
-
 static int	init_push_swap(t_push_swap *ps, int argc, char **argv, int start)
 {
 	ps->a = NULL;
@@ -49,9 +41,9 @@ int	main(int argc, char **argv)
 		return (print_error());
 	if (init_push_swap(&ps, argc, argv, start))
 		return (print_error());
+	ps.used = cfg.strategy;
 	if (!stack_is_sorted(ps.a))
 		run_strategy(&ps, cfg.strategy);
-	ps.counts.total = count_operations(&ps.counts);
 	if (cfg.bench)
 		print_bench(&ps, cfg.strategy);
 	stack_free(&ps.a);

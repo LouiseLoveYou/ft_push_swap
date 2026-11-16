@@ -73,4 +73,6 @@ void	sort_simple(t_push_swap *ps, int size)
 		sort_four(ps);
 	else if (size == 5)
 		sort_five(ps);
+	else
+		sort_selection(ps);
 }
