@@ -32,11 +32,14 @@ int	parse_flags(int argc, char **argv, t_config *cfg)
 
 	cfg->strategy = ADAPTIVE;
 	cfg->bench = 0;
+	cfg->calcule = 0;
 	i = 1;
 	while (i < argc && argv[i][0] == '-' && argv[i][1] == '-')
 	{
 		if (!ft_strncmp(argv[i], "--bench", 8))
 			cfg->bench = 1;
+		else if (!ft_strncmp(argv[i], "--calcule", 10))
+			cfg->calcule = 1;
 		else
 		{
 			strategy = strategy_from(argv[i]);

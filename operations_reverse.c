@@ -19,7 +19,7 @@ void	op_rra(t_push_swap *ps)
 	rotate_down(&ps->a);
 	ps->counts.rra++;
 	ps->counts.total++;
-	print_op("rra");
+	print_op(ps, "rra");
 }
 
 void	op_rrb(t_push_swap *ps)
@@ -29,7 +29,7 @@ void	op_rrb(t_push_swap *ps)
 	rotate_down(&ps->b);
 	ps->counts.rrb++;
 	ps->counts.total++;
-	print_op("rrb");
+	print_op(ps, "rrb");
 }
 
 void	op_rrr(t_push_swap *ps)
@@ -40,5 +40,5 @@ void	op_rrr(t_push_swap *ps)
 	rotate_down(&ps->b);
 	ps->counts.rrr++;
 	ps->counts.total++;
-	print_op("rrr");
+	print_op(ps, "rrr");
 }
