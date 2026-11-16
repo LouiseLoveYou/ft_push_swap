@@ -21,6 +21,7 @@ SRCS		= main.c \
 			  operations_reverse.c \
 			  disorder.c \
 			  algo_simple.c \
+			  algo_selection.c \
 			  algo_medium.c \
 			  algo_complex.c \
 			  algo_adaptive.c \
